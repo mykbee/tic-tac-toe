@@ -9,6 +9,7 @@ var spaces = [
 var player1 = 'veggies';
 var player2 = 'junkfood';
 var currentPlayer = null;
+var winner = null;
 
 var setNextTurn = function () {
   if (currentPlayer === player1) {
@@ -41,7 +42,8 @@ var checkForWinner = function () {
   {
     console.log('somebody won');
     // TODO: Trigger 'game-win' event with the winning player as the event data
-
+    winner = currentPlayer
+    $(document).trigger('game-win');
   }
 };
 
@@ -59,7 +61,7 @@ $(document).on('click', '#board .space', function (e) {
   setNextTurn();
 });
 
-$(document).on('game-win', function (e, winner) {
+$(document).on('game-win', function (e) {
   // TODO: Alert who won the game
   alert(winner + " won the game!")
 });

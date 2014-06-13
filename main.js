@@ -6,10 +6,11 @@ var spaces = [
   NaN, NaN, NaN
 ];
 
-var player1 = 'veggies';
-var player2 = 'junkfood';
+var player1 = 'Veggies';
+var player2 = 'Junkfood';
 var currentPlayer = null;
 var winner = null;
+var gameOver = false;
 
 var setNextTurn = function () {
   if (currentPlayer === player1) {
@@ -48,9 +49,14 @@ var checkForWinner = function () {
 };
 
 $(document).on('click', '#board .space', function (e) {
+  if (gameOver) {
+    return;
+  };
   var spaceNum = $(e.currentTarget).index();
   console.log('You clicked on space #' + spaceNum);
-
+  if (spaces[spaceNum]) {
+    return;
+  };
   // Marks the space with the current player's name
   // TODO: Don't mark it unless the space is blank
   spaces[spaceNum] = currentPlayer;
@@ -64,6 +70,7 @@ $(document).on('click', '#board .space', function (e) {
 $(document).on('game-win', function (e) {
   // TODO: Alert who won the game
   alert(winner + " won the game!")
+  gameOver = true;
 });
 
 // Start the game
